@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.41'
+        classpath 'org.jetbrains.kotlin:kotlin-allopen:1.2.41'
+    }
+}
+
+apply plugin: org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
+apply plugin: org.jetbrains.kotlin.allopen.gradle.SpringGradleSubplugin
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+        javaParameters = true
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+
+allOpen {
+    annotation("org.springframework.context.annotation.Configuration")
+}
+
+dependencies {
+    compile 'org.jetbrains.kotlin:kotlin-stdlib'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    compile 'org.jetbrains.kotlin:kotlin-reflect'
+    testCompile "org.jetbrains.kotlin:kotlin-test"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+}
